@@ -24,7 +24,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        \Laravel\Passport\Passport::routes();
+        
+        // Durata token prima del refresh
+        \Laravel\Passport\Passport::tokensExpireIn( \Carbon::now()->addDays( config('api.tokensexpirein') ) );
 
-        //
+        // Durata del token aggiornato
+        \Laravel\Passport\Passport::refreshTokensExpireIn( \Carbon::now()->addDays(config('api.refreshtokensexpirein')));
     }
 }
