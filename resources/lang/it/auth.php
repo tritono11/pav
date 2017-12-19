@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'Credenziali non presenti.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'email' => 'Indirizzo E-Mail',
     'rememberme' => 'Ricordami',
@@ -22,6 +22,7 @@ return [
     'register' => 'Iscriviti',
     'name' => 'Nome utente',
     'confirm' => 'Conferma password',
-    'sendresetlink' => 'Invia reset password'
+    'sendresetlink' => 'Invia reset password',
+    'password.edit' => 'Modifica password'
 
 ];
