@@ -15,13 +15,13 @@ return [
 
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-    'email' => 'E-Mail address',
-    'rememberme' => 'Remember me',
-    'passwordforgotten' => 'Forgot Your Password?',
-    'login' => 'Login',
-    'register' => 'Register',
-    'name' => 'Username',
-    'confirm' => 'Confirm password',
-    'sendresetlink' => 'Send password reset link'
+    'email' => 'Indirizzo E-Mail',
+    'rememberme' => 'Ricordami',
+    'passwordforgotten' => 'Password dimenticata?',
+    'login' => 'Accedi',
+    'register' => 'Iscriviti',
+    'name' => 'Nome utente',
+    'confirm' => 'Conferma password',
+    'sendresetlink' => 'Invia reset password'
 
 ];

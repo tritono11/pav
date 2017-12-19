@@ -18,3 +18,14 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// PUBLIC ROUTES
+Route::get('/azienda', function () {
+    return view('azienda');
+});
+Route::get('/contattit', function () {
+    return view('contatti');
+});
+
+
+// PROFILO
