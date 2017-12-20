@@ -31,3 +31,5 @@ Route::get('/contattit', function () {
 // PROFILO
 Route::get('/password/edit','Auth\ResetPasswordController@edit')->middleware('auth')->name('password.edit');
 Route::post('/password/edit','Auth\ResetPasswordController@updatePassword')->middleware('auth')->name('password.edit');
+Route::get('/profilo/create','ProfiloController@create')->middleware('auth')->name('profilo.create');
+Route::post('/profilo/store','ProfiloController@store')->middleware('auth')->name('profilo.store');

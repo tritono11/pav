@@ -1056,3 +1056,5 @@ function convertTime($dec) {
 function lz($num) {
     return (strlen($num) < 2) ? "0{$num}" : $num;
 }
+
+

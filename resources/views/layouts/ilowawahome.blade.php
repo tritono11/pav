@@ -58,7 +58,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="" >
+                                        <a href="{{ route('profilo.create') }} " >
                                             @Lang('profilo.profilo')
                                         </a>
                                     </li>

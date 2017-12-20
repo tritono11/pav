@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => 'Carbon\Carbon',
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Form' => Collective\Html\FormFacade,
+        'Html' => Collective\Html\HtmlFacade,
 
     ],
 

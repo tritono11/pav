@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Profilo;
 
 class ProfiloController extends Controller
 {
@@ -23,7 +24,8 @@ class ProfiloController extends Controller
      */
     public function create()
     {
-        //
+        $data['profilo'] = new Profilo();
+        return view('profilo.create', $data); 
     }
 
     /**
