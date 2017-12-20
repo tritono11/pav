@@ -5,7 +5,16 @@
     <div class="row">
         <div class="col-md-12 2">
             <div class="panel panel-default">
+                <ol class="breadcrumb">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Profilo</a></li>
+                    <li class="active">Crea</li>
+                  </ol>
                 <div class="panel-heading">Crea profilo</div>
+                
+                <div class="alert alert-info guida-miniatura" role="alert">Per usufruire del servizio è necessario compilare le informazioni sul tuo profilo.</div>
+                
+                
                 <div class="panel-body">
                      @if (session('error'))
                         <div class="alert alert-danger">
