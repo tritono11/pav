@@ -20,10 +20,10 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // PUBLIC ROUTES
-Route::get('/azienda', function () {
-    return view('azienda');
-});
-Route::get('/contattit', function () {
+Route::get('/ar', function () {
+    return view('public.ar');
+})->name('ar');
+Route::get('/contatti', function () {
     return view('contatti');
 });
 
