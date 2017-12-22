@@ -10,3 +10,8 @@
      font-size: 10px;
      padding: 5px 15px;
  }
+ 
+ /*Tutti gli input in maiuscolo*/
+input:not([type='password']) { 
+    text-transform: uppercase;
+}
