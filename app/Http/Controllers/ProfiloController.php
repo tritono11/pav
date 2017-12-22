@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Profilo;
+use Illuminate\Support\Facades\Auth;
+use \Carbon;
 
 class ProfiloController extends Controller
 {
@@ -14,7 +16,7 @@ class ProfiloController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -24,8 +26,13 @@ class ProfiloController extends Controller
      */
     public function create()
     {
-        $data['profilo'] = new Profilo();
-        return view('profilo.create', $data); 
+        $profilo = Profilo::where('i_user_id', Auth::id())->first();
+        if ($profilo){
+            $data['profilo'] = $profilo;
+            return view('profilo.edit', $data); 
+        } else {
+            return view('profilo.create'); 
+        }   
     }
 
     /**
@@ -34,9 +41,18 @@ class ProfiloController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\StoreProfiloPost $request)
     {
-        //
+        // request all
+        $input = $request->except('_token');
+        $profilo = new Profilo();
+        foreach ($input as $k => $v) {
+            $profilo->$k = $v;
+        }
+        $profilo->i_user_id = Auth::id();
+        $profilo->d_privacy = Carbon::now();
+        $profilo->save();
+        return redirect()->route('profilo.edit', [$profilo])->with('success', __('generic.success.store'));
     }
 
     /**
@@ -68,9 +84,16 @@ class ProfiloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(\App\Http\Requests\StoreProfiloPost $request, $id)
     {
-        //
+        $input = $request->except('_token');
+        $profilo = Profilo::find($id);
+        foreach ($input as $k => $v) {
+            $profilo->$k = $v;
+        }
+        $profilo->i_user_id = Auth::id();
+        $profilo->save();
+        return redirect()->route('profilo.edit', [$profilo])->with('success', __('generic.success.update'));
     }
 
     /**
