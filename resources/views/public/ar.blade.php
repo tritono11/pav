@@ -9,7 +9,6 @@
             <a-cone color="#F08080" scale="1 0.5 1"  radius-bottom="0.5" radius-top="0.2" position='0 1.5 0'></a-cone>
   	</a-marker>
   	<a-entity camera></a-entity>
-        
     </a-scene>
   </body>
 </html>
