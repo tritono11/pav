@@ -7,6 +7,7 @@ use App\Profilo;
 use Illuminate\Support\Facades\Auth;
 use \Carbon;
 
+
 class ProfiloController extends Controller
 {
     /**
@@ -29,9 +30,11 @@ class ProfiloController extends Controller
         $profilo = Profilo::where('i_user_id', Auth::id())->first();
         if ($profilo){
             $data['profilo'] = $profilo;
+            $data['comuni'] = \App\Istat::getComuneDDL();
             return view('profilo.edit', $data); 
         } else {
-            return view('profilo.create'); 
+            $data['comuni'] = \App\Istat::getComuneDDL();
+            return view('profilo.create', $data); 
         }   
     }
 

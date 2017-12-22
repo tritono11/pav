@@ -75,7 +75,8 @@
                         <div class="form-group {{ $errors->has('t_stato_nascita') ? ' has-error' : '' }}">
                             <label for="t_stato_nascita" class="col-md-2 control-label">@Lang('profilo.t_stato_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_comune_nascita', old('t_stato_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  }}
+                                {{-- Form::text('t_comune_nascita', old('t_stato_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  --}}
+                                {{ Form::select('t_sesso', $comuni, old('t_sesso'), array('class' => 'form-control')) }}
                                 @if ($errors->has('t_comune_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_stato_nascita') }}</strong>
