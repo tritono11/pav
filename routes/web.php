@@ -37,3 +37,9 @@ Route::post('/profilo/store','ProfiloController@store')->middleware('auth')->nam
 // For a route with the following URI: profile/{id}
 Route::get('/profilo/edit/{id}','ProfiloController@create')->middleware('auth')->name('profilo.edit');
 Route::post('/profilo/update/{id}','ProfiloController@update')->middleware('auth')->name('profilo.update');
+
+// ISTAT - Ajax
+Route::get('istat/province/{regionecodice}', function($regionecodice){
+    $province = App\Istat::getProvinciaDDL($regionecodice);
+    return response()->json($province) ?? abort(404);
+})->middleware('auth')->name('istat.province');

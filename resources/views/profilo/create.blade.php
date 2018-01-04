@@ -75,8 +75,7 @@
                         <div class="form-group {{ $errors->has('t_stato_nascita') ? ' has-error' : '' }}">
                             <label for="t_stato_nascita" class="col-md-2 control-label">@Lang('profilo.t_stato_nascita')</label>
                             <div class="col-md-10">
-                                {{-- Form::text('t_comune_nascita', old('t_stato_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  --}}
-                                {{ Form::select('t_sesso', $comuni, old('t_sesso'), array('class' => 'form-control')) }}
+                                {{ Form::select('t_stato_nascita', ['IT' => 'Italia'], old('t_stato_nascita'), array('class' => 'form-control')) }}
                                 @if ($errors->has('t_comune_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_stato_nascita') }}</strong>
@@ -87,8 +86,8 @@
                         <div class="form-group {{ $errors->has('t_regione_nascita') ? ' has-error' : '' }}">
                             <label for="t_regione_nascita" class="col-md-2 control-label">@Lang('profilo.t_regione_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_regione_nascita', old('t_regione_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  }}
-                                @if ($errors->has('t_comune_nascita'))
+                                {{ Form::select('t_regione_nascita', $regioni, old('t_regione_nascita'), array('class' => 'form-control', 'id' => 't_regione_nascita', 'data-url' => '../istat/province/' )) }}
+                                @if ($errors->has('t_regione_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_regione_nascita') }}</strong>
                                     </span>
@@ -98,8 +97,8 @@
                         <div class="form-group {{ $errors->has('t_provincia_nascita') ? ' has-error' : '' }}">
                             <label for="t_provincia_nascita" class="col-md-2 control-label">@Lang('profilo.t_provincia_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_provincia_nascita', old('t_provincia_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  }}
-                                @if ($errors->has('t_comune_nascita'))
+                                {{ Form::select('t_provincia_nascita', [], old('t_provincia_nascita'), array('class' => 'form-control', 'id' => 't_provincia_nascita', 'data-url' => '../istat/comuni/' )) }}
+                                @if ($errors->has('t_provincia_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_provincia_nascita') }}</strong>
                                     </span>
@@ -109,7 +108,7 @@
                         <div class="form-group {{ $errors->has('t_comune_nascita') ? ' has-error' : '' }}">
                             <label for="t_comune_nascita" class="col-md-2 control-label">@Lang('profilo.t_comune_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_comune_nascita', old('t_comune_nascita'), array('class' => 'form-control', 'maxlength' => '2') )  }}
+                                {{ Form::select('t_stato_nascita', $comuni, old('t_stato_nascita'), array('class' => 'form-control')) }}
                                 @if ($errors->has('t_comune_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_comune_nascita') }}</strong>
@@ -264,3 +263,10 @@
     </div>
 </div>
 @endsection
+@section('pagescript')
+<script type="text/javascript" src="{{ asset('js/profilo.js') }}"></script>
+@stop
+
+
+
+

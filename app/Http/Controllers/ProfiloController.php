@@ -28,12 +28,12 @@ class ProfiloController extends Controller
     public function create()
     {
         $profilo = Profilo::where('i_user_id', Auth::id())->first();
+        $data['comuni'] = \App\Istat::getComuneDDL();
+        $data['regioni'] = \App\Istat::getRegioneDDL();
         if ($profilo){
             $data['profilo'] = $profilo;
-            $data['comuni'] = \App\Istat::getComuneDDL();
             return view('profilo.edit', $data); 
         } else {
-            $data['comuni'] = \App\Istat::getComuneDDL();
             return view('profilo.create', $data); 
         }   
     }
