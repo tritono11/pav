@@ -13,7 +13,16 @@ $(document).ready(function($) {
         var ajaxProvince = execAjax(url + val, 'GET',{});
         ajaxProvince.done(function(data) {
             fillDdlFromPlunk('t_provincia_nascita', data, 0);
+            emptyDdl('t_comune_nascita');
         })
     });
-        
+    $('#t_provincia_nascita').change(function(e){
+        var url = $(this).data('url');
+        var val = e.target.value;
+        var ajax = execAjax(url + val, 'GET',{});
+        ajax.done(function(data) {
+            fillDdlFromPlunk('t_comune_nascita', data, 0);
+            
+        })
+    });
 });

@@ -41,8 +41,12 @@ class Istat extends Model
     }
     
     public static function getComuneDDL($provinciaCodice = null){
+        $res = null;
         if ($provinciaCodice){
-            
+            $res = DB::table('istats')
+                    ->select('t_codice_alfanumerico_comune','t_denominazione_comune')
+                    ->where('t_codice_provincia', $provinciaCodice)
+                    ->pluck('t_denominazione_comune', 't_codice_alfanumerico_comune');
         } else {
             $res = DB::table('istats')
                     ->select('t_codice_alfanumerico_comune','t_denominazione_comune')

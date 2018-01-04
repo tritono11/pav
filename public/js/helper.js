@@ -27,14 +27,22 @@ function execAjax(url, method, data){
 
 /*
  * Template valorizza dropdown list
+ * idSource - tag id reference
+ * data     - JSON list key, value
  * flagAddOrRemove = 0 | 1
  */
 function fillDdlFromPlunk(idSource, data, flagAddOrRemove){
-    var $ddl = $('#t_provincia_nascita');
+    var $ddl = $('#' + idSource);
     if (flagAddOrRemove == 0){
-        $ddl.find('option').remove();
+        emptyDdl(idSource);
     }
     $.each(data, function(key, value) {
         $ddl.append($("<option />").val(key).text(value));
     });
+}
+
+
+function emptyDdl(idSource){
+    var $ddl = $('#' + idSource);
+    $ddl.find('option').remove();
 }

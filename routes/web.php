@@ -43,3 +43,8 @@ Route::get('istat/province/{regionecodice}', function($regionecodice){
     $province = App\Istat::getProvinciaDDL($regionecodice);
     return response()->json($province) ?? abort(404);
 })->middleware('auth')->name('istat.province');
+
+Route::get('istat/comuni/{provinciacodice}', function($provinciacodice){
+    $comuni = App\Istat::getComuneDDL($provinciacodice);
+    return response()->json($comuni) ?? abort(404);
+})->middleware('auth')->name('istat.comuni');

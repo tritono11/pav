@@ -108,7 +108,7 @@
                         <div class="form-group {{ $errors->has('t_comune_nascita') ? ' has-error' : '' }}">
                             <label for="t_comune_nascita" class="col-md-2 control-label">@Lang('profilo.t_comune_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::select('t_stato_nascita', $comuni, old('t_stato_nascita'), array('class' => 'form-control')) }}
+                                {{ Form::select('t_comune_nascita', [], old('t_comune_nascita'), array('class' => 'form-control', 'id' => 't_comune_nascita')) }}
                                 @if ($errors->has('t_comune_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_comune_nascita') }}</strong>
