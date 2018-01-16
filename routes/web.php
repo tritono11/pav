@@ -23,6 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/ar', function () {
     return view('public.ar');
 })->name('ar');
+Route::get('/aframe', function () {
+    return view('public.aframe');
+})->name('aframe');
 Route::get('/contatti', function () {
     return view('contatti');
 });
