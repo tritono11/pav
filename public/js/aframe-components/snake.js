@@ -42,7 +42,13 @@ AFRAME.registerComponent('engine', {
     if (this.data.axis = 'z'){
         this.directionVec3 = new THREE.Vector3(0, 0, 1 * this.data.direction);
     }
-      
+    // Registra evento
+    this.listeners = {
+      keydown: this.onKeyDown.bind(this),
+//      keyup: this.onKeyUp.bind(this),
+//      blur: this.onBlur.bind(this)
+    };
+    window.addEventListener('keydown', this.listeners.keydown, false);
     
   },
   update: function (oldData) {
@@ -61,7 +67,6 @@ AFRAME.registerComponent('engine', {
       // `event` not specified, just log the message.
       console.log(data.message);
     }
-    
     
   },
   remove: function () {
@@ -83,6 +88,12 @@ AFRAME.registerComponent('engine', {
       y: currentPosition.y + directionVec3.y,
       z: currentPosition.z + directionVec3.z
     });
-  }
+  },
+  onKeyDown: function (event) {
+      if (event.code =="KeyD"){
+          this.data.axis = 'z';
+          this.directionVec3 = new THREE.Vector3(-1 * this.data.direction, 0, 0);
+      }
+  },
 });
 
