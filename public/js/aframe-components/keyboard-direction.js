@@ -31,13 +31,23 @@ AFRAME.registerComponent('keyboard-direction', {
     window.addEventListener('keydown', this.listeners.keydown, false);
   },
   onKeyDown: function (event) {
-      if (event.code =="KeyD"){
-          console.log(event);
-          this.emit(event);
-      }
-//    if (AFRAME.utils.shouldCaptureKeyEvent(event)) {
-//      this.localKeys[event.code] = true;
-//      
-//    }
+        if (AFRAME.utils.shouldCaptureKeyEvent(event)) {
+        this.localKeys[event.code] = true;
+        this.emit(event);
+    }
+  },
+  emit: function (event) {
+    // TODO - keydown only initially?
+    // TODO - where the f is the spacebar
+
+    // Emit original event.
+    if (PROXY_FLAG in event) {
+      // TODO - Method never triggered.
+      this.el.emit(event.type, event);
+    }
+
+    // Emit convenience event, identifying key.
+    this.el.emit(event.type + ':' + event.code, new KeyboardEvent(event.type, event));
+    if (this.data.debug) console.log(event.type + ':' + event.code);
   },
 });

@@ -13,7 +13,7 @@
                position="-1 1 -3" 
                rotation="0 45 0" 
                color="#40C3D9" 
-               engine="direction : 1; axis:x; event: anEvent; message: Hello, Metaverse!"
+               engine="direction : -1; axis:y; event: anEvent; message: Hello, Metaverse!"
                static-body look-controls >
                    
         </a-box>
