@@ -4,7 +4,7 @@ AFRAME.registerComponent('engine', {
     message     : {type : 'string', default: 'ciao'},
     direction   : {type: 'number', default : 1},
     axis        : {type : 'string', default : 'x'},
-    speed       : {type: 'number', default : 100.0}
+    speed       : {type: 'number', default : 10.0}
     
   },
   init: function () {
@@ -57,7 +57,7 @@ AFRAME.registerComponent('engine', {
     var currentPosition = this.el.object3D.position;
     //if (currentPosition.y > 6) { return; }
     // Scala i valori
-    var factor = this.data.speed * (timeDelta / 1000);
+    var factor = this.data.speed ;
 //    ['x', 'y', 'z'].forEach(function (axis) {
 //      directionVec3[axis] *= factor * (timeDelta / 1000);
 //    });
@@ -70,9 +70,6 @@ AFRAME.registerComponent('engine', {
   },
   onKeyDown: function (event) {
     if (event.code =="KeyD"){
-        //var yAxis = new THREE.Vector3( 0, 1, 0 ); // ruota attorno adll asse Y
-        //var angle = Math.PI / 2; // ruota di 90°
-        //this.directionVec3.applyAxisAngle( yAxis, angle );
         var rotationMatrix = new THREE.Matrix4(); 
         var angle = - Math.PI / 2;
         var axis = new THREE.Vector3( 0, 1, 0 ).normalize();

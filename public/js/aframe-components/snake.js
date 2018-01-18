@@ -19,3 +19,4 @@ AFRAME.registerPrimitive('a-snake', extendDeep({}, meshMixin, {
 // Snake component
 
 
+
