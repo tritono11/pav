@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 
+const MAX_DELTA = 0.2,
+    PROXY_FLAG = '__keyboard-controls-proxy';
 
+const KeyboardEvent = window.KeyboardEvent;
 AFRAME.registerComponent('keyboard-direction', {
   schema: {
     enabled:           { default: true },
@@ -32,9 +35,9 @@ AFRAME.registerComponent('keyboard-direction', {
   },
   onKeyDown: function (event) {
         if (AFRAME.utils.shouldCaptureKeyEvent(event)) {
-        this.localKeys[event.code] = true;
-        this.emit(event);
-    }
+            this.localKeys[event.code] = true;
+            this.emit(event);
+        }
   },
   emit: function (event) {
     // TODO - keydown only initially?
