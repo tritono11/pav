@@ -4,7 +4,7 @@ AFRAME.registerComponent('engine', {
     message     : {type : 'string', default: 'ciao'},
     direction   : {type: 'number', default : 1},
     axis        : {type : 'string', default : 'x'},
-    speed       : {type: 'number', default : 10.0}
+    speed       : {type: 'number', default : 0.5}
     
   },
   init: function () {
@@ -57,15 +57,15 @@ AFRAME.registerComponent('engine', {
     var currentPosition = this.el.object3D.position;
     //if (currentPosition.y > 6) { return; }
     // Scala i valori
-    var factor = this.data.speed ;
-//    ['x', 'y', 'z'].forEach(function (axis) {
-//      directionVec3[axis] *= factor * (timeDelta / 1000);
-//    });
+    var factor = this.data.speed;
+    ['x', 'y', 'z'].forEach(function (axis) {
+      directionVec3[axis] *= factor * (timeDelta / 1000);
+    });
     
     this.el.setAttribute('position', {
-      x: currentPosition.x + directionVec3.x/factor,
-      y: currentPosition.y + directionVec3.y/factor,
-      z: currentPosition.z + directionVec3.z/factor
+      x: currentPosition.x + directionVec3.x,
+      y: currentPosition.y + directionVec3.y,
+      z: currentPosition.z + directionVec3.z
     });
   },
   onKeyDown: function (event) {
@@ -85,13 +85,13 @@ AFRAME.registerComponent('engine', {
         if (this.data.speed < 10.0){
             this.data.speed -= 1;
         }              
-        console.log(this.data.speed);
+       
     }
     if (event.code =="KeyS"){
         if (this.data.speed > 0.0){
             this.data.speed += 1;
         }
-        console.log(this.data.speed);
+        
     }
   },
 });
