@@ -2,27 +2,16 @@ AFRAME.registerComponent('engine', {
   schema: {
     event       : {type: 'string', default: 'x'},
     message     : {type : 'string', default: 'ciao'},
-    direction   : {type: 'number', default : 1},
-    axis        : {type : 'string', default : 'x'},
-    speed       : {type: 'number', default : 0.5}
-    
+    direction   : {type: 'vec3', default : {x: 1, y: 0, z: 0}},
+    speed       : {type: 'number', default : 0.1}
   },
   init: function () {
     var self = this;
     // .init() is a good place to set up initial state and variables.
     // Store a reference to the handler so we can later remove it.
     this.eventHandlerFn = function () { console.log(self.data.message); };
-    console.log('Engine ready! - direction : ' + this.data.direction + ' - axis : ' + this.data.axis );
-    this.directionVec3 = null;
-    if (this.data.axis == 'x'){
-        this.directionVec3 = new THREE.Vector3(1 * this.data.direction, 0, 0);
-    }
-    if (this.data.axis == 'y'){
-        this.directionVec3 = new THREE.Vector3(0, 1 * this.data.direction, 0);
-    }
-    if (this.data.axis == 'z'){
-        this.directionVec3 = new THREE.Vector3(0, 0, 1 * this.data.direction);
-    }
+    
+    this.directionVec3 = new THREE.Vector3(this.data.direction.x, this.data.direction.y, this.data.direction.z);
     // Registra evento
     this.listeners = {
       keydown: this.onKeyDown.bind(this),
@@ -53,45 +42,40 @@ AFRAME.registerComponent('engine', {
   },
   tick: function (time, timeDelta) {
     // Do something on every scene tick or frame.
-    var directionVec3 = this.directionVec3;
+    var directionVec3 = this.data.direction;
     var currentPosition = this.el.object3D.position;
     //if (currentPosition.y > 6) { return; }
-    // Scala i valori
-    var factor = this.data.speed;
-    ['x', 'y', 'z'].forEach(function (axis) {
-      directionVec3[axis] *= factor * (timeDelta / 1000);
-    });
-    
-    this.el.setAttribute('position', {
-      x: currentPosition.x + directionVec3.x,
-      y: currentPosition.y + directionVec3.y,
-      z: currentPosition.z + directionVec3.z
-    });
+    this.el.object3D.position.x = this.el.object3D.position.x + this.directionVec3.x * this.data.speed;
+    this.el.object3D.position.y = this.el.object3D.position.y + this.directionVec3.y * this.data.speed;
+    this.el.object3D.position.z = this.el.object3D.position.z + this.directionVec3.z * this.data.speed;
+//    this.el.setAttribute('position', {
+//      x: currentPosition.x + directionVec3.x*this.data.speed,
+//      y: currentPosition.y + directionVec3.y*this.data.speed,
+//      z: currentPosition.z + directionVec3.z*this.data.speed
+//    });
   },
   onKeyDown: function (event) {
     if (event.code =="KeyD"){
-        var rotationMatrix = new THREE.Matrix4(); 
-        var angle = - Math.PI / 2;
-        var axis = new THREE.Vector3( 0, 1, 0 ).normalize();
-        rotationMatrix.makeRotationAxis( axis, angle ).multiplyVector3( this.directionVec3 );
+        var axis = new THREE.Vector3( 0, 1, 0 );
+        var angle = -Math.PI / 2;
+        this.directionVec3.applyAxisAngle( axis, angle );
+        this.el.object3D.rotation.y -= Math.PI/2;
     }
     if (event.code =="KeyA"){
-        var rotationMatrix = new THREE.Matrix4(); 
+        var axis = new THREE.Vector3( 0, 1, 0 );
         var angle = Math.PI / 2;
-        var axis = new THREE.Vector3( 0, 1, 0 ).normalize();
-        rotationMatrix.makeRotationAxis( axis, angle ).multiplyVector3( this.directionVec3 );
+        this.directionVec3.applyAxisAngle( axis, angle );
+        this.el.object3D.rotation.y += Math.PI/2;
     }
     if (event.code =="KeyW"){
         if (this.data.speed < 10.0){
-            this.data.speed -= 1;
+            this.data.speed += 0.01;
         }              
-       
     }
     if (event.code =="KeyS"){
         if (this.data.speed > 0.0){
-            this.data.speed += 1;
+            this.data.speed -= 0.01;
         }
-        
     }
   },
 });
