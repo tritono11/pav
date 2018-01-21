@@ -3,7 +3,7 @@ AFRAME.registerComponent('engine', {
     event       : {type: 'string', default: 'x'},
     message     : {type : 'string', default: 'ciao'},
     direction   : {type: 'vec3', default : {x: 1, y: 0, z: 0}},
-    speed       : {type: 'number', default : 0.1}
+    speed       : {type: 'number', default : 0.0}
   },
   init: function () {
     var self = this;
@@ -42,8 +42,8 @@ AFRAME.registerComponent('engine', {
   },
   tick: function (time, timeDelta) {
     // Do something on every scene tick or frame.
-    var directionVec3 = this.data.direction;
-    var currentPosition = this.el.object3D.position;
+    //var directionVec3 = this.data.direction;
+    //var currentPosition = this.el.object3D.position;
     //if (currentPosition.y > 6) { return; }
     this.el.object3D.position.x = this.el.object3D.position.x + this.directionVec3.x * this.data.speed;
     this.el.object3D.position.y = this.el.object3D.position.y + this.directionVec3.y * this.data.speed;
@@ -58,14 +58,18 @@ AFRAME.registerComponent('engine', {
     if (event.code =="KeyD"){
         var axis = new THREE.Vector3( 0, 1, 0 );
         var angle = -Math.PI / 2;
+        //this.data.direction.applyAxisAngle( axis, angle );
         this.directionVec3.applyAxisAngle( axis, angle );
         this.el.object3D.rotation.y -= Math.PI/2;
+        this.data.direction =this.directionVec3;
     }
     if (event.code =="KeyA"){
         var axis = new THREE.Vector3( 0, 1, 0 );
         var angle = Math.PI / 2;
+        //this.data.direction.applyAxisAngle( axis, angle );
         this.directionVec3.applyAxisAngle( axis, angle );
         this.el.object3D.rotation.y += Math.PI/2;
+        this.data.direction =this.directionVec3;
     }
     if (event.code =="KeyW"){
         if (this.data.speed < 10.0){
@@ -78,5 +82,6 @@ AFRAME.registerComponent('engine', {
         }
     }
   },
+  
 });
 
