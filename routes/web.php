@@ -26,6 +26,9 @@ Route::get('/ar', function () {
 Route::get('/aframe', function () {
     return view('public.aframe');
 })->name('aframe');
+Route::get('/test', function () {
+    return view('public.test');
+})->name('test');
 Route::get('/contatti', function () {
     return view('contatti');
 });
