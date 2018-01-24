@@ -63,7 +63,7 @@
                         <div class="form-group {{ $errors->has('d_nascita') ? ' has-error' : '' }}">
                             <label for="d_nascita" class="col-md-2 control-label">@Lang('profilo.d_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::date('d_nascita', old('d_nascita'), array('class' => 'form-control') )  }}
+                                {{ Form::date('d_nascita', old('d_nascita') ? Carbon::parse(old('d_nascita'))->format('Y-m-d') : '', array('class' => 'form-control') )  }}
                                 @if ($errors->has('d_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('d_nascita') }}</strong>
@@ -208,7 +208,7 @@
                         <div class="form-group {{ $errors->has('t_stato_res') ? ' has-error' : '' }}">
                             <label for="t_stato_res" class="col-md-2 control-label">@Lang('profilo.t_stato_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_stato_res', old('t_stato_res'), array('class' => 'form-control') )  }}
+                                {{ Form::select('t_stato_res', ['IT' => 'Italia'], old('t_stato_res'), array('class' => 'form-control')) }}
                                 @if ($errors->has('t_stato_res'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_stato_res') }}</strong>
@@ -219,7 +219,7 @@
                         <div class="form-group {{ $errors->has('t_regione_res') ? ' has-error' : '' }}">
                             <label for="t_regione_res" class="col-md-2 control-label">@Lang('profilo.t_regione_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_regione_res', old('t_regione_res'), array('class' => 'form-control') )  }}
+                                {{ Form::select('t_regione_res', $regioni, old('t_regione_res'), array('class' => 'form-control', 'id' => 't_regione_res', 'data-url' => '../istat/province/' )) }}
                                 @if ($errors->has('t_regione_res'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_regione_res') }}</strong>
@@ -231,7 +231,7 @@
                         <div class="form-group {{ $errors->has('t_provincia_res') ? ' has-error' : '' }}">
                             <label for="t_provincia_res" class="col-md-2 control-label">@Lang('profilo.t_provincia_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_provincia_res', old('t_provincia_res'), array('class' => 'form-control') )  }}
+                                {{ Form::select('t_provincia_res', [], old('t_provincia_res'), array('class' => 'form-control', 'id' => 't_provincia_res', 'data-url' => '../istat/comuni/' )) }}
                                 @if ($errors->has('t_provincia_res'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_provincia_res') }}</strong>
@@ -242,7 +242,7 @@
                         <div class="form-group {{ $errors->has('t_comune_res') ? ' has-error' : '' }}">
                             <label for="t_comune_res" class="col-md-2 control-label">@Lang('profilo.t_comune_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_comune_res', old('t_comune_res'), array('class' => 'form-control') )  }}
+                                {{ Form::select('t_comune_res', [], old('t_comune_res'), array('class' => 'form-control', 'id' => 't_comune_res')) }}
                                 @if ($errors->has('t_comune_res'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_comune_res') }}</strong>

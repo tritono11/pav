@@ -31,8 +31,13 @@ class ProfiloController extends Controller
         $data['regioni'] = \App\Istat::getRegioneDDL();
         if ($profilo){
             $data['profilo'] = $profilo;
-            return view('profilo.edit2', $data); 
+            $data['provinciaDDL'] = \App\Istat::getProvinciaDDL($profilo->t_regione_nascita);
+            $data['comuneDDL'] = \App\Istat::getComuneDDL($profilo->t_provincia_nascita);
+            $data['provinciaResDDL'] = \App\Istat::getProvinciaDDL($profilo->t_regione_res);
+            $data['comuneResDDL'] = \App\Istat::getComuneDDL($profilo->t_provincia_res);
+            return view('profilo.edit', $data); 
         } else {
+            
             return view('profilo.create', $data); 
         }   
     }
