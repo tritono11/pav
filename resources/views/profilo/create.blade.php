@@ -186,7 +186,7 @@
                         <div class="form-group {{ $errors->has('t_numero_civico_res') ? ' has-error' : '' }}">
                             <label for="t_numero_civico_res" class="col-md-2 control-label">@Lang('profilo.t_numero_civico_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_numero_civico', old('t_numero_civico_res'), array('class' => 'form-control') )  }}
+                                {{ Form::text('t_numero_civico_res', old('t_numero_civico_res'), array('class' => 'form-control') )  }}
                                 @if ($errors->has('t_indirizzo'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_numero_civico_res') }}</strong>
@@ -223,6 +223,18 @@
                                 @if ($errors->has('t_regione_res'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_regione_res') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class="form-group {{ $errors->has('t_provincia_res') ? ' has-error' : '' }}">
+                            <label for="t_provincia_res" class="col-md-2 control-label">@Lang('profilo.t_provincia_res')</label>
+                            <div class="col-md-10">
+                                {{ Form::text('t_provincia_res', old('t_provincia_res'), array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_provincia_res'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('t_provincia_res') }}</strong>
                                     </span>
                                 @endif
                             </div>

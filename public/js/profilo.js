@@ -19,10 +19,16 @@ $(document).ready(function($) {
     $('#t_provincia_nascita').change(function(e){
         var url = $(this).data('url');
         var val = e.target.value;
+        if (val=='') return;
         var ajax = execAjax(url + val, 'GET',{});
         ajax.done(function(data) {
             fillDdlFromPlunk('t_comune_nascita', data, 0);
             
         })
     });
+    
+    // Init
+    init();
 });
+
+function init(){};

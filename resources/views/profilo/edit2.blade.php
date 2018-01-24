@@ -27,7 +27,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
-                    {{ Form::open(array('route' => array('profilo.update', $profilo->id), 'class' => 'form-horizontal')) }}
+                    {{ Form::open(array('route' => 'profilo.store', 'class' => 'form-horizontal')) }}
                         <div class="form-group {{ $errors->has('t_nome') ? ' has-error' : '' }}">
                             <label for="t_nome" class="col-md-2 control-label">@Lang('profilo.nome')</label>
                             <div class="col-md-10">
@@ -61,10 +61,10 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_cognome') ? ' has-error' : '' }}">
+                        <div class="form-group {{ $errors->has('d_nascita') ? ' has-error' : '' }}">
                             <label for="d_nascita" class="col-md-2 control-label">@Lang('profilo.d_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::date('d_nascita', Carbon\Carbon::parse($profilo->d_nascita)->format('Y-m-d'), array('class' => 'form-control') )  }}
+                                {{ Form::date('d_nascita', $profilo->d_nascita, array('class' => 'form-control') )  }}
                                 @if ($errors->has('d_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('d_nascita') }}</strong>
@@ -72,11 +72,44 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_cognome') ? ' has-error' : '' }}">
+                        <!-- Localizzazione nascita -->
+                        <div class="form-group {{ $errors->has('t_stato_nascita') ? ' has-error' : '' }}">
+                            <label for="t_stato_nascita" class="col-md-2 control-label">@Lang('profilo.t_stato_nascita')</label>
+                            <div class="col-md-10">
+                                {{ Form::select('t_stato_nascita', ['IT' => 'Italia'], $profilo->t_stato_nascita, array('class' => 'form-control')) }}
+                                @if ($errors->has('t_comune_nascita'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('t_stato_nascita') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('t_regione_nascita') ? ' has-error' : '' }}">
+                            <label for="t_regione_nascita" class="col-md-2 control-label">@Lang('profilo.t_regione_nascita')</label>
+                            <div class="col-md-10">
+                                {{ Form::select('t_regione_nascita', $regioni, $profilo->t_regione_nascita, array('class' => 'form-control', 'id' => 't_regione_nascita', 'data-url' => '../istat/province/' )) }}
+                                @if ($errors->has('t_regione_nascita'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('t_regione_nascita') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('t_provincia_nascita') ? ' has-error' : '' }}">
+                            <label for="t_provincia_nascita" class="col-md-2 control-label">@Lang('profilo.t_provincia_nascita')</label>
+                            <div class="col-md-10">
+                                {{ Form::select('t_provincia_nascita', [], $profilo->t_provincia_nascita, array('class' => 'form-control', 'id' => 't_provincia_nascita', 'data-url' => '../istat/comuni/' )) }}
+                                @if ($errors->has('t_provincia_nascita'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('t_provincia_nascita') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group {{ $errors->has('t_comune_nascita') ? ' has-error' : '' }}">
                             <label for="t_comune_nascita" class="col-md-2 control-label">@Lang('profilo.t_comune_nascita')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_comune_nascita', $profilo->t_comune_nascita, array('class' => 'form-control', 'maxlength' => '2') )  }}
-                                {{ Form::select('t_comune_nascita', [], $profilo->t_comune_nascita, array('class' => 'form-control')) }}
+                                {{ Form::select('t_comune_nascita', [], $profilo->t_comune_nascita, array('class' => 'form-control', 'id' => 't_comune_nascita')) }}
                                 @if ($errors->has('t_comune_nascita'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_comune_nascita') }}</strong>
@@ -84,10 +117,11 @@
                                 @endif
                             </div>
                         </div>
+                        <!-- END Localizzazione nascita -->
                         <div class="form-group {{ $errors->has('t_cf') ? ' has-error' : '' }}">
                             <label for="t_cf" class="col-md-2 control-label">@Lang('profilo.t_cf')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_cf', $profilo->t_cf, array('class' => 'form-control', 'maxlength' => '16') )  }}
+                                {{ Form::text('t_cf',$profilo->t_cf, array('class' => 'form-control', 'maxlength' => '16') )  }}
                                 @if ($errors->has('t_cf'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('t_cf') }}</strong>
@@ -139,79 +173,80 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_indirizzo') ? ' has-error' : '' }}">
-                            <label for="t_indirizzo" class="col-md-2 control-label">@Lang('profilo.t_indirizzo') di residenza</label>
+                        <div class="form-group {{ $errors->has('t_indirizzo_res') ? ' has-error' : '' }}">
+                            <label for="t_indirizzo_res" class="col-md-2 control-label">@Lang('profilo.t_indirizzo_res') di residenza</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_indirizzo', $profilo->t_indirizzo, array('class' => 'form-control') )  }}
+                                {{ Form::text('t_indirizzo_res', $profilo->t_indirizzo_res, array('class' => 'form-control') )  }}
                                 @if ($errors->has('t_indirizzo'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_indirizzo') }}</strong>
+                                        <strong>{{ $errors->first('t_indirizzo_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_numero_civico') ? ' has-error' : '' }}">
-                            <label for="t_numero_civico" class="col-md-2 control-label">@Lang('profilo.t_numero_civico')</label>
+                        <div class="form-group {{ $errors->has('t_numero_civico_res') ? ' has-error' : '' }}">
+                            <label for="t_numero_civico_res" class="col-md-2 control-label">@Lang('profilo.t_numero_civico_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_numero_civico', $profilo->t_numero_civico, array('class' => 'form-control') )  }}
+                                {{ Form::text('t_numero_civico_res', $profilo->t_numero_civico_res, array('class' => 'form-control') )  }}
                                 @if ($errors->has('t_indirizzo'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_numero_civico') }}</strong>
+                                        <strong>{{ $errors->first('t_numero_civico_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_cap') ? ' has-error' : '' }}">
-                            <label for="t_cap" class="col-md-2 control-label">@Lang('profilo.t_cap')</label>
+                        <div class="form-group {{ $errors->has('t_cap_res') ? ' has-error' : '' }}">
+                            <label for="t_cap_res" class="col-md-2 control-label">@Lang('profilo.t_cap_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_cap', $profilo->t_cap, array('class' => 'form-control') )  }}
-                                @if ($errors->has('t_cap'))
+                                {{ Form::text('t_cap_res', $profilo->t_cap_res, array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_cap_res'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_cap') }}</strong>
+                                        <strong>{{ $errors->first('t_cap_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_comune') ? ' has-error' : '' }}">
-                            <label for="t_comune" class="col-md-2 control-label">@Lang('profilo.t_comune')</label>
+                        <div class="form-group {{ $errors->has('t_stato_res') ? ' has-error' : '' }}">
+                            <label for="t_stato_res" class="col-md-2 control-label">@Lang('profilo.t_stato_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_comune', $profilo->t_comune, array('class' => 'form-control') )  }}
-                                @if ($errors->has('t_comune'))
+                                {{ Form::text('t_stato_res', $profilo->t_stato_res, array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_stato_res'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_comune') }}</strong>
+                                        <strong>{{ $errors->first('t_stato_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_provincia') ? ' has-error' : '' }}">
-                            <label for="t_provincia" class="col-md-2 control-label">@Lang('profilo.t_provincia')</label>
+                        <div class="form-group {{ $errors->has('t_regione_res') ? ' has-error' : '' }}">
+                            <label for="t_regione_res" class="col-md-2 control-label">@Lang('profilo.t_regione_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_provincia', $profilo->t_provincia, array('class' => 'form-control') )  }}
-                                @if ($errors->has('t_provincia'))
+                                {{ Form::text('t_regione_res', $profilo->t_regione_res, array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_regione_res'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_provincia') }}</strong>
+                                        <strong>{{ $errors->first('t_regione_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_regione') ? ' has-error' : '' }}">
-                            <label for="t_regione" class="col-md-2 control-label">@Lang('profilo.t_regione')</label>
+                        
+                        <div class="form-group {{ $errors->has('t_provincia_res') ? ' has-error' : '' }}">
+                            <label for="t_provincia_res" class="col-md-2 control-label">@Lang('profilo.t_provincia_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_regione', $profilo->t_regione, array('class' => 'form-control') )  }}
-                                @if ($errors->has('t_regione'))
+                                {{ Form::text('t_provincia_res', $profilo->t_provincia_res, array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_provincia_res'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_regione') }}</strong>
+                                        <strong>{{ $errors->first('t_provincia_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
-                        <div class="form-group {{ $errors->has('t_stato') ? ' has-error' : '' }}">
-                            <label for="t_stato" class="col-md-2 control-label required">@Lang('profilo.t_stato')</label>
+                        <div class="form-group {{ $errors->has('t_comune_res') ? ' has-error' : '' }}">
+                            <label for="t_comune_res" class="col-md-2 control-label">@Lang('profilo.t_comune_res')</label>
                             <div class="col-md-10">
-                                {{ Form::text('t_stato', $profilo->t_stato, array('class' => 'form-control') )  }}
-                                @if ($errors->has('t_stato'))
+                                {{ Form::text('t_comune_res', $profilo->t_comune_res, array('class' => 'form-control') )  }}
+                                @if ($errors->has('t_comune_res'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('t_stato') }}</strong>
+                                        <strong>{{ $errors->first('t_comune_res') }}</strong>
                                     </span>
                                 @endif
                             </div>
