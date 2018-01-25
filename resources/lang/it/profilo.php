@@ -13,7 +13,8 @@ return [
     |
     */
 
-    'profilo' => 'Profilo',
+    'profilo'   => 'Profilo',
+    'ex1'       => 'Per usufruire del servizio è necessario compilare le informazioni sul tuo profilo. Questo ti permetterà di velocizzare le operazioni di check-in e check-out presso la nostra sede.'
     
 
 ];

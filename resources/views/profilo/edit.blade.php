@@ -12,7 +12,7 @@
                     <li class="active">Modifica</li>
                   </ol>
                 <div class="panel-heading">Modifica profilo</div>
-                <div class="alert alert-info guida-miniatura" role="alert">Per usufruire del servizio è necessario compilare le informazioni sul tuo profilo.</div>
+                <div class="alert alert-info guida-miniatura" role="alert">{{__('profilo.ex1')}}</div>
                 <div class="panel-body">
                      @if (session('error'))
                         <div class="alert alert-danger">
