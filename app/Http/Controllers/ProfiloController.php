@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Profilo;
 use Illuminate\Support\Facades\Auth;
 use \Carbon;
-
+use Illuminate\Support\Facades\Crypt;
 
 class ProfiloController extends Controller
 {
@@ -98,6 +98,7 @@ class ProfiloController extends Controller
         foreach ($input as $k => $v) {
             $profilo->$k = $v;
         }
+        //$profilo->t_nome = Crypt::encryptString($profilo->t_nome);
         $profilo->i_user_id = Auth::id();
         $profilo->save();
         return redirect()->route('profilo.edit', [$profilo])->with('success', __('generic.success.update'));
