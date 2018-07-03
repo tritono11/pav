@@ -92,8 +92,8 @@ class RegisterController extends Controller
         $verifyUser = VerifyUser::where('token', $token)->first();
         if(isset($verifyUser) ){
             $user = $verifyUser->user;
-            if(!$user->verified) {
-                $verifyUser->user->verified = 1;
+            if(!$user->b_verified) {
+                $verifyUser->user->b_verified = 1;
                 $verifyUser->user->save();
                 $status = __('profilo.attivazione.verificata');
             }else{
