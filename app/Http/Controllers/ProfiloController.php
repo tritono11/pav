@@ -98,10 +98,10 @@ class ProfiloController extends Controller
         foreach ($input as $k => $v) {
             $profilo->$k = $v;
         }
-        //$profilo->t_nome = Crypt::encryptString($profilo->t_nome);
         $profilo->i_user_id = Auth::id();
         $profilo->save();
-        return redirect()->route('profilo.edit', [$profilo])->with('success', __('generic.success.update'));
+        $qs = Crypt::encrypt(['id' => $id]);
+        return redirect()->route('profilo.edit', $qs)->with('success', __('generic.success.update'));
     }
 
     /**
