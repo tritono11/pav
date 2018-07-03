@@ -12,7 +12,7 @@
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "~5.3",
-        "vlucas/phpdotenv" : "~2.2"
+        "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
