@@ -33,7 +33,7 @@ Route::get('/contatti', function () {
     return view('contatti');
 });
 
-
+Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 // PROFILO
 Route::get('/password/edit','Auth\ResetPasswordController@edit')->middleware('auth')->name('password.edit');
 Route::post('/password/edit','Auth\ResetPasswordController@updatePassword')->middleware('auth')->name('password.edit');
