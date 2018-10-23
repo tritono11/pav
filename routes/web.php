@@ -40,7 +40,7 @@ Route::post('/password/edit','Auth\ResetPasswordController@updatePassword')->mid
 
 Route::get('/profilo/create','ProfiloController@create')->middleware('auth')->name('profilo.create');
 Route::post('/profilo/store','ProfiloController@store')->middleware('auth')->name('profilo.store');
-// For a route with the following URI: profile/{id}
+
 Route::get('/profilo/edit/{id}','ProfiloController@create')->middleware('auth')->name('profilo.edit');
 Route::post('/profilo/update/{id}','ProfiloController@update')->middleware('auth')->name('profilo.update');
 
