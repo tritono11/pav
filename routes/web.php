@@ -38,12 +38,14 @@ Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
 Route::get('/password/edit','Auth\ResetPasswordController@edit')->middleware('auth')->name('password.edit');
 Route::post('/password/edit','Auth\ResetPasswordController@updatePassword')->middleware('auth')->name('password.edit');
 
+
 Route::get('/profilo/create','ProfiloController@create')->middleware('auth')->name('profilo.create');
 Route::post('/profilo/store','ProfiloController@store')->middleware('auth')->name('profilo.store');
 
 Route::get('/profilo/edit/{id}','ProfiloController@create')->middleware('auth')->name('profilo.edit');
 Route::post('/profilo/update/{id}','ProfiloController@update')->middleware('auth')->name('profilo.update');
 
+Route::group(['middleware' => ['role:admin']], function () {});
 // ISTAT - Ajax
 Route::get('istat/province/{regionecodice}', function($regionecodice){
     $province = App\Istat::getProvinciaDDL($regionecodice);

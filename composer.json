@@ -11,6 +11,7 @@
         "laravel/passport": "^4.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "~5.3",
+        "spatie/laravel-permission": "^2.36",
         "vlucas/phpdotenv": "~2.2"
     },
     "require-dev": {
