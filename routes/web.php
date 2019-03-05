@@ -45,7 +45,10 @@ Route::post('/profilo/store','ProfiloController@store')->middleware('auth')->nam
 Route::get('/profilo/edit/{id}','ProfiloController@create')->middleware('auth')->name('profilo.edit');
 Route::post('/profilo/update/{id}','ProfiloController@update')->middleware('auth')->name('profilo.update');
 
-Route::group(['middleware' => ['role:admin']], function () {});
+Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('/users/list', 'admin\UsersController@table')->middleware('auth')->name('admin.users.list');
+    Route::get('/users/edit/{id}', 'admin\UsersController@edit')->middleware('auth')->name('admin.users.edit');
+});
 // ISTAT - Ajax
 Route::get('istat/province/{regionecodice}', function($regionecodice){
     $province = App\Istat::getProvinciaDDL($regionecodice);
