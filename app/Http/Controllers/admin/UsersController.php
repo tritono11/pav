@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Crypt;
 
 class UsersController extends Controller
 {
@@ -18,9 +20,50 @@ class UsersController extends Controller
         try{
             $id = decrypt($id);
             $data['user'] = User::find($id);
+            $data['roles'] = Role::all();
             return view('admin.users.edit', $data);
         } catch (DecryptException $e) {
  
         }
+    }
+    
+    public function update(\App\Http\Requests\UserFormRequest $request, $id)
+    {
+        try{
+            $id             = decrypt($id)['id'];
+            $input          = $request->except('_token');
+            $user           = User::find($id);
+            $data['roles']  = Role::all();
+            $arrRoles       = [];
+            foreach ($data['roles'] as $a){
+                $arrRoles[] = $a->name;
+            }
+            foreach ($input as $k => $v) {
+                if ( !in_array($k , $arrRoles) ){
+                    $user->$k = $v;
+                }
+            }
+            $user->save();
+            foreach ($input as $k => $v) {
+                if ( in_array($k , $arrRoles) ){
+                    if ( $v == 'Y' ){
+                        $user->assignRole($k);
+                    }
+                }
+            }
+            // TODO to fix
+            foreach( $user->getRoleNames() as $r ){
+                if ( !in_array($r, $input) ){
+                    // è stato disattivato
+                    $user->removeRole($r);
+                }
+            }
+            
+            $qs = encrypt($user->id);
+            return redirect()->route('admin.users.edit', $qs)->with('success', __('generic.success.update'));
+        } catch (DecryptException $e) {
+ 
+        }
+        
     }
 }
