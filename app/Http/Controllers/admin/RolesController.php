@@ -32,7 +32,7 @@ class RolesController extends Controller
         try{
             $id = decrypt($id);
             $data['role'] = Role::findById($id);
-            return view('admin.users.edit', $data);
+            return view('admin.roles.edit', $data);
         } catch (DecryptException $e) {
  
         }

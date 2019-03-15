@@ -8,10 +8,18 @@
             <div class="panel panel-default">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">@Lang('generic.roles')</a></li>
-                    <li class="active">@Lang('generic.lists')</li>
+                    <li><a href="#">@Lang('role.roles')</a></li>
+                    <li class="active">@Lang('role.list')</li>
                   </ol>
-                <div class="panel-heading">Lista utenti</div>
+                <div class="panel-heading">
+                    <div class="panel-title pull-left">
+                        Lista utenti
+                    </div>
+                    <div class="panel-title pull-right">
+                        <a href="/roles/add" class="btn btn-primary btn-small pull-right">@Lang('generic.add')</a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="panel-body">
                      @if (session('error'))
                         <div class="alert alert-danger">

@@ -34,6 +34,8 @@ Route::get('/contatti', function () {
 });
 
 Route::get('/user/verify/{token}', 'Auth\RegisterController@verifyUser');
+Route::get('/mailing/add', 'MailingController@add')->name('mailing.add');
+Route::post('/mailing/store', 'MailingController@store')->name('mailing.store');
 // PROFILO
 Route::get('/password/edit','Auth\ResetPasswordController@edit')->middleware('auth')->name('password.edit');
 Route::post('/password/edit','Auth\ResetPasswordController@updatePassword')->middleware('auth')->name('password.edit');
@@ -48,7 +50,13 @@ Route::post('/profilo/update/{id}','ProfiloController@update')->middleware('auth
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/users/list', 'admin\UsersController@table')->middleware('auth')->name('admin.users.list');
     Route::get('/users/edit/{id}', 'admin\UsersController@edit')->middleware('auth')->name('admin.users.edit');
+    Route::post('/users/edit/{id}', 'admin\UsersController@update')->middleware('auth')->name('admin.users.update');
+    
     Route::get('/roles/list', 'admin\RolesController@table')->middleware('auth')->name('admin.users.list');
+    Route::get('/roles/add', 'admin\RolesController@add')->middleware('auth')->name('admin.role.add');
+    Route::post('/roles/store', 'admin\RolesController@store')->middleware('auth')->name('admin.roles.store');
+    Route::get('/roles/edit/{id}', 'admin\RolesController@edit')->middleware('auth')->name('admin.roles.edit');
+    Route::post('/roles/edit/{id}', 'admin\RolesController@update')->middleware('auth')->name('admin.roles.update');
 });
 // ISTAT - Ajax
 Route::get('istat/province/{regionecodice}', function($regionecodice){

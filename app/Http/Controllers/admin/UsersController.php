@@ -45,17 +45,13 @@ class UsersController extends Controller
             }
             $user->save();
             foreach ($input as $k => $v) {
-                if ( in_array($k , $arrRoles) ){
+                if ( in_array($k , $arrRoles) && $k != 'admin' ){
                     if ( $v == 'Y' ){
                         $user->assignRole($k);
                     }
-                }
-            }
-            // TODO to fix
-            foreach( $user->getRoleNames() as $r ){
-                if ( !in_array($r, $input) ){
-                    // è stato disattivato
-                    $user->removeRole($r);
+                    if ( $v == 'N' ){
+                        $user->removeRole($k);
+                    }
                 }
             }
             

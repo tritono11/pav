@@ -76,16 +76,17 @@
                         <a href="{{ route('test') }}">TEST-CONSTRAINT.js</a>
                         <a href="{{ route('login') }}">Login</a>
                         <a href="{{ route('register') }}">Register</a>
+                        <a href="{{ route('mailing.add') }}">Mailing list</a>
                     @endauth
                 </div>
             @endif
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Iblea
                 </div>
 
-                <div class="links">
+                <div class="links ">
                     <a href="https://laravel.com/docs">Documentation</a>
                     <a href="https://laracasts.com">Laracasts</a>
                     <a href="https://laravel-news.com">News</a>
